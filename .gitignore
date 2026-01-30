@@ -15,6 +15,7 @@ instance/
 
 # Task data (user-generated content)
 tasks.json
+tasks_pro.json
 
 # IDE
 .vscode/

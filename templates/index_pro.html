@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager - Professional Edition</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_pro.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 Task Manager</h1>
+            <p class="subtitle">タスク管理システム</p>
+        </div>
+        
+        <!-- Add Task Form -->
+        <form action="{{ url_for('add_task') }}" method="POST" class="add-task-form">
+            <input type="text" name="task" placeholder="Add a new task..." required>
+            <button type="submit">Add Task</button>
+        </form>
+
+        <!-- Task List -->
+        <div class="task-list">
+            {% if tasks %}
+                {% for task in tasks %}
+                <div class="task-item {% if task.completed %}completed{% endif %}">
+                    <div class="task-content">
+                        <a href="{{ url_for('toggle_task', task_id=task.id) }}" class="checkbox">
+                            {% if task.completed %}✓{% endif %}
+                        </a>
+                        <span class="task-text">{{ task.text }}</span>
+                    </div>
+                    <a href="{{ url_for('delete_task', task_id=task.id) }}" class="delete-btn">✕</a>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-tasks">No tasks yet. Add your first task to get started.</p>
+            {% endif %}
+        </div>
+
+        <!-- Task Summary -->
+        {% if tasks %}
+        <div class="summary">
+            <div class="summary-item">
+                <span class="summary-label">Total</span>
+                <span class="summary-value">{{ tasks|length }}</span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Completed</span>
+                <span class="summary-value">{{ tasks|selectattr('completed')|list|length }}</span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Remaining</span>
+                <span class="summary-value">{{ tasks|rejectattr('completed')|list|length }}</span>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
