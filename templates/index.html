@@ -3,17 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple To-Do App</title>
+    <title>🐱 Nyan Tasks - Cat To-Do App</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <!-- Decorative paw prints -->
+    <div class="paw-print paw-top-left">🐾</div>
+    <div class="paw-print paw-top-right">🐾</div>
+    
     <div class="container">
-        <h1>📝 My To-Do List</h1>
+        <div class="cat-mascot">😺</div>
+        <h1>🐱 にゃんタスク</h1>
+        <p class="subtitle">Nyan Tasks - Your Cute To-Do List</p>
         
         <!-- Add Task Form -->
         <form action="{{ url_for('add_task') }}" method="POST" class="add-task-form">
-            <input type="text" name="task" placeholder="Enter a new task..." required>
-            <button type="submit">Add Task</button>
+            <input type="text" name="task" placeholder="新しいタスクを入力... (Enter a new task...)" required>
+            <button type="submit">🐾 Add Task</button>
         </form>
 
         <!-- Task List -->
@@ -31,19 +37,30 @@
                 </div>
                 {% endfor %}
             {% else %}
-                <p class="no-tasks">No tasks yet! Add one above to get started.</p>
+                <p class="no-tasks">タスクがありません！ にゃん～ 🐾<br>No tasks yet! Add one above to get started.</p>
             {% endif %}
         </div>
 
         <!-- Task Summary -->
         {% if tasks %}
         <div class="summary">
-            <p>Total tasks: {{ tasks|length }} | 
-               Completed: {{ tasks|selectattr('completed')|list|length }} | 
-               Remaining: {{ tasks|rejectattr('completed')|list|length }}
+            <p>🐾 Total: {{ tasks|length }} | 
+               ✨ Done: {{ tasks|selectattr('completed')|list|length }} | 
+               📝 Left: {{ tasks|rejectattr('completed')|list|length }} にゃん！
             </p>
         </div>
         {% endif %}
+        
+        <!-- Bottom paw prints -->
+        <div class="paw-prints-bottom">
+            <span>🐾</span>
+            <span>🐾</span>
+            <span>🐾</span>
+        </div>
     </div>
+    
+    <!-- Decorative bottom paw prints -->
+    <div class="paw-print paw-bottom-left">🐾</div>
+    <div class="paw-print paw-bottom-right">🐾</div>
 </body>
 </html>
