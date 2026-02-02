@@ -75,5 +75,14 @@ def toggle_task(task_id):
     save_tasks(tasks)
     return redirect(url_for('index'))
 
+@app.route('/clear_completed', methods=['POST'])
+def clear_completed_tasks():
+    """Clear all completed tasks"""
+    tasks = load_tasks()
+    # Filter out completed tasks, keeping only incomplete ones
+    tasks = [task for task in tasks if not task['completed']]
+    save_tasks(tasks)
+    return redirect(url_for('index'))
+
 if __name__ == '__main__':
     app.run(debug=True, host='127.0.0.1', port=5001)

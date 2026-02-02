@@ -54,6 +54,13 @@
                 <span class="summary-value">{{ tasks|rejectattr('completed')|list|length }}</span>
             </div>
         </div>
+        
+        <!-- Clear Completed Button -->
+        {% if tasks|selectattr('completed')|list|length > 0 %}
+        <form action="{{ url_for('clear_completed_tasks') }}" method="POST" class="clear-completed-form">
+            <button type="submit" class="clear-completed-btn">Clear Completed Tasks</button>
+        </form>
+        {% endif %}
         {% endif %}
     </div>
 </body>
